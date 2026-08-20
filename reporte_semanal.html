@@ -320,7 +320,7 @@
             document.getElementById('user-dropdown-name').innerText = appDataLoreto.nombre;
             document.getElementById('nombre_tecnico').value = appDataLoreto.nombre;
 
-            fetch('menu.html?v=2').then(res => res.text()).then(html => {
+            fetch('menu.html?v=3').then(res => res.text()).then(html => {
                 document.getElementById('sidebar').innerHTML = html; lucide.createIcons();
                 const linkInicio = document.getElementById('link-inicio'); if(linkInicio) linkInicio.classList.remove('active');
                 const linkReporte = document.getElementById('link-reporte-semanal'); if(linkReporte) linkReporte.classList.add('active');
