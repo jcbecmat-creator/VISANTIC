@@ -6,7 +6,7 @@
     <title>Inicio de Sesión - VISANTIC</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
-    <!-- SDKs de Firebase añadidos aquí -->
+    <!-- SDKs de Firebase -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 
@@ -15,7 +15,7 @@
             height: 100%;
             margin: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #058EA6; /* Fondo actualizado */
+            background-color: #058EA6; /* Color VISANTIC */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -27,7 +27,7 @@
         .login-box {
             background-color: #ffffff;
             border-radius: 12px;
-            padding: 12px 25px 15px 25px; 
+            padding: 25px 25px 30px 25px; 
             box-shadow: 0 10px 25px rgba(0,0,0,0.2);
             width: 100%; 
             max-width: 550px; 
@@ -36,8 +36,8 @@
         }
 
         .main-logo {
-            width: 300px; /* Tamaño aumentado un 200% (de 100px a 300px) */
-            max-width: 100%; /* Evita que se desborde en pantallas pequeñas */
+            width: 300px; /* Tamaño aumentado un 200% */
+            max-width: 100%; 
             height: auto;
             margin-top: 10px; 
             margin-bottom: 15px; 
@@ -135,8 +135,6 @@
             min-height: 18px; 
         }
 
-        /* La clase bottom-logo ha sido eliminada del HTML */
-
         .copyright {
             font-size: 10px; 
             color: #ffffff;
@@ -184,7 +182,7 @@
     </div>
 
     <script>
-        // Configuración de Firebase actualizada
+        // Configuración de Firebase
         const firebaseConfig = {
             apiKey: "AIzaSyBjlemFwGQbA3mM7UhOZAVGaam1z1Xixr8",
             authDomain: "loretoapp-2ca14.firebaseapp.com",
@@ -202,7 +200,6 @@
         togglePasswordIcon.addEventListener('click', function () {
             const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
             passwordField.setAttribute('type', type);
-            
             this.classList.toggle('fa-eye');
             this.classList.toggle('fa-eye-slash');
         });
@@ -224,7 +221,7 @@
             mensajeDiv.innerText = "";
             
             // LA URL DE TU SCRIPT DE GOOGLE
-            var scriptURL = "https://script.google.com/macros/s/AKfycbxjvjVtkeORnHkkJczXbIXIiJN8i85oJrcLfzGuPVE4FNPkw6Sqd3KZcBV4bNbQn3k/exec";
+            var scriptURL = "https://script.google.com/macros/s/AKfycbyQBuAUlC0bc8dYgUHgwbTNOa7ut6dKB_Ls6sqgDbKyHF51zKofE9cQ7rWp_SH2X9k/exec";
 
             fetch(scriptURL, {
                 method: 'POST',
@@ -242,7 +239,19 @@
                     mensajeDiv.style.color = "#188038";
                     mensajeDiv.innerText = "¡Bienvenido! Redirigiendo...";
                     
-                    // Guardamos en LocalStorage
+                    // ==========================================
+                    // SOLUCIÓN: Guardar en SESIÓN y con el formato que espera inicio.html
+                    // ==========================================
+                    const datosSesion = {
+                        nombreProveedor: respuesta.nombre, 
+                        privilegio: respuesta.privilegio
+                    };
+                    
+                    // Guardamos en sessionStorage (que es lo que lee inicio.html)
+                    sessionStorage.setItem('loginSession', JSON.stringify(datosSesion));
+                    sessionStorage.setItem('loginUser', user);
+                    
+                    // También en localStorage por si lo necesitas en otras partes
                     localStorage.setItem('usuario', user); 
                     localStorage.setItem('privilegio', respuesta.privilegio);
                     localStorage.setItem('nombre', respuesta.nombre); 
